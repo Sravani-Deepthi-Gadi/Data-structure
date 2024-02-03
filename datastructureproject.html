@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Palindrome Stack Checker</title>
+  <script>
+    function fillStack() {
+      var inputString = document.getElementById("inputString").value.toLowerCase();
+      var stack = [];
+      
+      for (var i = 0; i < inputString.length; i++) {
+        setTimeout(function(index) {
+          stack.push(inputString[index]);
+          var stackTable = document.getElementById("stackTable");
+          var row = stackTable.insertRow();
+          var cell = row.insertCell();
+          cell.innerHTML = inputString[index];
+        }, 1000 * (i + 1), i);
+      }
+      
+      setTimeout(function() {
+        var reversedStack = [];
+        var reversedTable = document.getElementById("reversedTable");
+        for (var i = stack.length - 1; i >= 0; i--) {
+          setTimeout(function(index) {
+            reversedStack.push(stack[index]);
+            var row = reversedTable.insertRow();
+            var cell = row.insertCell();
+            cell.innerHTML = stack[index];
+          }, 1000 * (stack.length - i), i);
+        }
+        
+        setTimeout(function() {
+          var isPalindrome = inputString === reversedStack.join("");
+          if (isPalindrome) {
+            alert("The string is a palindrome!");
+          } else {
+            alert("The string is not a palindrome.");
+          }
+        }, 1000 * (stack.length + 1));
+      }, 1000 * (inputString.length + 1));
+    }
+  </script>
+</head>
+<body style="background-color: aquamarine;">
+<center>
+  <h2>Palindrome Stack Checker</h2>
+  <label for="inputString">Enter a string:</label>
+  <input type="text" id="inputString">
+  <button onclick="fillStack()">Check</button>
+  
+  <h3>Original Stack:</h3>
+  <table id="stackTable" border="1"></table>
+  
+  <h3>Reversed Stack:</h3>
+  <table id="reversedTable" border="1"></table>
+</center>
+</body>
+</html>
